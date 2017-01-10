@@ -21,6 +21,7 @@
         <li role="presentation" class=""><a href="#login" role="tab" id="login-tab" data-toggle="tab"
                                             aria-controls="login" aria-expanded="false">登录</a></li>
     </ul>
+    <br>
     <form class="form-horizontal" role="form">
         <div class="form-group">
             <label for="loginName" class="col-sm-2 control-label">登录名</label>
@@ -58,10 +59,23 @@
     $(function () {
         $('#myTab a').click(function (e) {
             e.preventDefault()
-            $(this).tab('show')
+            $(this).tab('show');
+        });
+        $("#loginBtn").click(function (e) {
+            var requestData = {
+                LOGINNAME: $("#loginName").val(),
+                LOGINPWD: $("#loginPwd").val()
+            };
+            $.ajax({
+                url: "/login",
+                data: requestData,
+                type: "POST",
+                success: function (response) {
+                    console.log(response);
+                }
+            });
         });
     });
-
 </script>
 </body>
 </html>

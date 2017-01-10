@@ -107,6 +107,24 @@ module.exports = {
                 connection.release();
             });
         });
+    },
+    queryUserInfoByLoginName: function (sqlParams,callback) {
+        console.log("queryUserInfoByLoginName sqlParams:"+JSON.stringify(sqlParams));
+        pool.getConnection(function(err, connection) {
+            var sqlQueryUserInfoByLoginName = "select * from taccount " +
+                "where loginName='"+sqlParams.loginName+"'" +
+                " and loginPwd='"+sqlParams.loginPwd+"'" +
+                " and flag=1";
+            console.log("queryUserInfoByLoginName exec sql:"+sqlQueryUserInfoByLoginName);
+            connection.query(sqlQueryUserInfoByLoginName, function(err, result) {
+                console.log("queryUserInfoByLoginName exec sql result:");
+                console.log(result);
+                if(callback){
+                    callback(err,result);
+                }
+                connection.release();
+            });
+        });
     }
     
 };
